@@ -26,36 +26,15 @@ def run_map_reduce(map_f, reduce_f, docs):
     return [reduce_f(g) for g in groups]
 
 def word_count_map(doc):
-    """
-    Params:
-      doc....a string to be split into tokens. split on whitespace.
-    Returns:
-      a list of tuples of form (token, 1), where token is a whitespace delimited element of this string.
-      
-    E.g.
-    >>> word_count_map('i am sam i am')
-    [('i', 1), ('am', 1), ('sam', 1), ('i', 1), ('am', 1)]
-    """
-    ###TODO
-    
+   # Split the document by whitespace and map each token to (token, 1)
+  return [(word, 1) for word in doc.split()]
+
     
 
 
 def word_count_reduce(group):
-    """
-    Params:
-      group...a tuple of the form (token, list_of_ones), indicating the number of times each word appears.
-    Returns:
-      tuple of form (token, int), where int is the number of times that token appears
-    E.g.
-    >>> word_count_reduce(['i', [1,1]])
-    ('i', 2)
-    
-    NOTE: you should use call the `reduce` function here.
-    """
-    ###TODO
-    
-    
+  word, counts = group
+  return (word, sum(counts))
 
 
 def iterate(f, x, a):
@@ -108,19 +87,16 @@ def reduce(f, id_, a):
     
 ### PART TWO ###
 
-def sentiment_map(doc,
-                  pos_terms=set(['good', 'great', 'awesome', 'sockdolager']),
-                  neg_terms=set(['bad', 'terrible', 'waste', 'carbuncle', 'corrupted'])):
-    """
-    Params:
-      doc.........a string to be split into tokens. split on whitespace.
-      pos_terms...a set of positive terms
-      neg_terms...a set of negative terms
-    Returns:
-      a list of tuples of form (positive, 1) or (negative, 1)      
-    E.g.
-    >>> sentiment_map('it was a terrible waste of time')
-    [('negative', 1), ('negative', 1)]
-    """
-    ###TODO
-
+def sentiment_map(doc, pos_terms=set(['good', 'great', 'awesome', 'sockdolager']), neg_terms=set(['bad', 'terrible', 'waste', 'carbuncle', 'corrupted'])):
+  # Split the document by whitespace
+  words = doc.split()
+  # Initialize an empty list to store the results
+  result = []
+  # Iterate through each word in the document
+  for word in words:
+    # Check if the word is in positive terms or negative terms
+    if word in pos_terms:
+        result.append(('positive', 1))
+    elif word in neg_terms:
+        result.append(('negative', 1))
+  return result

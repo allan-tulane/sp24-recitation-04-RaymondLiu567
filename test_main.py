@@ -1,4 +1,5 @@
-from main import *   
+from main import run_map_reduce, word_count_map, word_count_reduce, sentiment_map
+
 
 
 ### PART One
@@ -14,13 +15,6 @@ def test_word_count_reduce():
 def test_word_count():
     assert run_map_reduce(word_count_map, word_count_reduce, ['i am sam i am', 'sam is ham']) == \
            [('am', 2), ('ham', 1), ('i', 2), ('is', 1), ('sam', 2)]
-
-
-    
-
-
-
-    
     
     
 ### PART TWO ###

@@ -1,6 +1,6 @@
 # CMPS 2200  Recitation 04
 
-**Name (Team Member 1):**_________________________  
+**Name (Team Member 1):**_Raymond Liu________________________  
 **Name (Team Member 2):**_________________________
 
 
@@ -36,7 +36,8 @@ To use this function to count words, you'll need to implement your own `map_f` a
 
 4. Assume that a word `w` appears `n` times. What is the **work** and **span** of `word_count_reduce` for this word, assuming a parallel implementation of the `reduce` function?
 
-**Enter answer here**
+Work (W): This is the total amount of computation done by the algorithm. For reducing n counts of a word to a sum, the work is proportional to n, because each addition is a constant-time operation. Thus, W = O(n).
+Span (S): This is the longest path from start to finish in the computation graph, representing the time the algorithm would take on an infinitely parallel machine. Assuming a parallel implementation of the reduce function that uses a divide-and-conquer strategy, the span would be proportional to the logarithm of n, because at each step, the problem size is halved. Thus, S = O(log n).
 
 
 5. Why are we going through all this trouble? Couldn't I just use this function to count words?
@@ -52,7 +53,7 @@ for doc in docs:
 
 What is the problem that prevents us from easily parallelizing this solution?
 
-**Enter answer here**
+The provided sequential word count implementation cannot be easily parallelized due to its dependency on a single shared data structure (counts dictionary) that is updated in place. This makes it difficult to distribute the work across multiple processors without encountering race conditions or needing locks, which can significantly reduce performance. In contrast, the map-reduce approach naturally divides the work into smaller, independent tasks (map phase) that can be processed in parallel, followed by a reduce phase that can also be parallelized, especially when aggregating results from the map phase.
 
 
 ## Part 2: Sentiment analysis
